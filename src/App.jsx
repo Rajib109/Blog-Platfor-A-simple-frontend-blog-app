@@ -1,7 +1,19 @@
-import React from "react";
+import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomePage from './components/HomePage';
 
-const App = () => {
-  return <h1>hello world</h1>;
-};
+function App() {
+  return (
+    <>
+      <Header />
+      <main>
+        {/* The page content will go here */}
+        <HomePage/>
+      </main>
+      <Footer />
+    </>
+  );
+}
 
 export default App;
