@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'; // 1. Import Redux hooks
-import { fetchPosts } from '../store/postsSlice'; // 2. Import our async thunk
+import { fetchPosts } from '../store/PostsSlice'; // 2. Import our async thunk
 
 export default function HomePage() {
   const dispatch = useDispatch(); // 3. Get the dispatch function
