@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import SinglePostPage from './components/SinglePostPage'; // 1. Import the new page
 import { Routes, Route } from 'react-router-dom'; // 2. Import Routes and Route
+import LoginPage from './components/LoginPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/post/:postId" element={<SinglePostPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </main>
       <Footer />
