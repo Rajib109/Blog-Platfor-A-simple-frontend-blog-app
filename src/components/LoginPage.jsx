@@ -26,7 +26,7 @@ export default function LoginPage() {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        <button className="btn btn-neutral">Login</button>
       </form>
     </div>
   );
