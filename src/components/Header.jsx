@@ -1,9 +1,10 @@
+// src/components/Header.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // 1. Import our custom hook
+import { useAuth } from '../context/AuthContext';
 
 export default function Header() {
-  const { user, logout } = useAuth(); // 2. Get user and logout from context
+  const { user, logout } = useAuth();
 
   return (
     <header style={{ padding: '20px', textAlign: 'center', borderBottom: '1px solid #ccc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -12,13 +13,16 @@ export default function Header() {
           My Blog
         </Link>
       </h1>
-      <nav>
-        {/* 3. Conditionally render content */}
+      <nav style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
         {user ? (
-          <div>
-            <span>Welcome, {user.username}!</span>
-            <button onClick={logout} style={{ marginLeft: '10px' }}>Logout</button>
-          </div>
+          <>
+            {/* 3. Add link to create a new post */}
+            <Link to="/add-post">New Post</Link>
+            <div>
+              <span>Welcome, {user.username}!</span>
+              <button onClick={logout} style={{ marginLeft: '10px' }}>Logout</button>
+            </div>
+          </>
         ) : (
           <Link to="/login">Login</Link>
         )}

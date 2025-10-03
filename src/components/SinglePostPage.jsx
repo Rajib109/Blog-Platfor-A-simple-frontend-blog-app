@@ -1,40 +1,33 @@
 // src/components/SinglePostPage.jsx
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom'; // 1. Import useParams and Link
-import axios from 'axios';
+import { useParams, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux'; // 1. Import useSelector
+
+// We no longer need useState, useEffect, or axios here if the post is in the store.
+// But we'll keep them as a fallback for posts that aren't in the store yet (e.g. deep linking).
+// For this tutorial, we will simplify and assume the post is always in the store if navigated from the app.
 
 export default function SinglePostPage() {
-  const { postId } = useParams(); // 2. Get the post ID from the URL
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { postId } = useParams();
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        // 3. Fetch data for this specific post ID
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-        setPost(response.data);
-      } catch (error) {
-        console.error("Error fetching post:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // 2. Select the specific post from the Redux store
+  // The `postId` from the URL is a string, so we need to convert it to a number for comparison
+  const post = useSelector((state) => 
+    state.posts.items.find((post) => post.id === Number(postId))
+  );
 
-    fetchPost();
-  }, [postId]); // 4. Re-run the effect if the postId changes
-
-  if (loading) {
-    return <p>Loading post...</p>;
-  }
-
+  // 3. Render based on whether the post was found in the store
   if (!post) {
-    return <p>Post not found!</p>;
+    return (
+      <div style={{ padding: '20px' }}>
+        <h2>Post not found!</h2>
+        <Link to="/">&larr; Back to Home</Link>
+      </div>
+    );
   }
 
   return (
     <div style={{ padding: '20px' }}>
-      <Link to="/">&larr; Back to Home</Link> {/* 5. Link back to the homepage */}
+      <Link to="/">&larr; Back to Home</Link>
       <h1>{post.title}</h1>
       <p>{post.body}</p>
     </div>
